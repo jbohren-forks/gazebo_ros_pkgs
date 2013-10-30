@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs 
   urdf 
   tf 
+  tf2_ros 
   dynamic_reconfigure 
   driver_base 
   rosgraph_msgs 
@@ -105,6 +106,7 @@ catkin_package(
   nav_msgs 
   urdf 
   tf 
+  tf2_ros
   dynamic_reconfigure 
   driver_base 
   rosgraph_msgs 
@@ -253,6 +255,11 @@ add_library(gazebo_ros_planar_move src/gazebo_ros_planar_move.cpp)
 set_target_properties(gazebo_ros_planar_move PROPERTIES LINK_FLAGS "${ld_flags}")
 set_target_properties(gazebo_ros_planar_move PROPERTIES COMPILE_FLAGS "${cxx_flags}")
 target_link_libraries(gazebo_ros_planar_move ${GAZEBO_LIBRARIES} ${SDFormat_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_library(gazebo_ros_hand_of_god src/gazebo_ros_hand_of_god.cpp)
+set_target_properties(gazebo_ros_hand_of_god PROPERTIES LINK_FLAGS "${ld_flags}")
+set_target_properties(gazebo_ros_hand_of_god PROPERTIES COMPILE_FLAGS "${cxx_flags}")
+target_link_libraries(gazebo_ros_hand_of_god ${GAZEBO_LIBRARIES} ${SDFormat_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 ##
 ## Add your new plugin here
