@@ -19,7 +19,6 @@ find_package(catkin REQUIRED COMPONENTS
   driver_base 
   rosgraph_msgs 
   trajectory_msgs 
-  pcl_ros 
   pcl_conversions
   image_transport 
   rosconsole
@@ -115,7 +114,6 @@ catkin_package(
   driver_base 
   rosgraph_msgs 
   trajectory_msgs 
-  pcl_ros 
   pcl_conversions
   image_transport 
   rosconsole
@@ -252,6 +250,7 @@ install(TARGETS
   gazebo_ros_imu
   gazebo_ros_f3d
   gazebo_ros_bumper
+  gazebo_ros_hand_of_god
   gazebo_ros_template
   gazebo_ros_projector
   gazebo_ros_prosilica
