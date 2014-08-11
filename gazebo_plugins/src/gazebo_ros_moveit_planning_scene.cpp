@@ -217,10 +217,10 @@ void GazeboRosMoveItPlanningScene::UpdateCB()
     // Create a new collision object representing this gazebo model if it's not in the map
     if(found_collision_object == collision_object_map_.end() || publish_full_scene_){
 
-      ROS_INFO("Creating collision object model %s, this=%s, objects=%u",
-               model_name.c_str(),
-               model_name_.c_str(),
-               (unsigned int)collision_object_map_.size());
+      //ROS_INFO("Creating collision object model %s, this=%s, objects=%u",
+      //         model_name.c_str(),
+      //         model_name_.c_str(),
+      //         (unsigned int)collision_object_map_.size());
 
       moveit_msgs::CollisionObject new_object;
       new_object.id = model_name;
@@ -486,11 +486,11 @@ void GazeboRosMoveItPlanningScene::UpdateCB()
 
             object.primitives.push_back(primitive_msg);
           }
-          ROS_INFO("model %s has %u links",model_name.c_str(),links.size());
-          ROS_INFO("model %s has %u meshes, %u mesh poses",
-                   model_name.c_str(),
-                   (unsigned int)object.meshes.size(),
-                   (unsigned int)object.mesh_poses.size());
+          //ROS_INFO("model %s has %u links",model_name.c_str(),links.size());
+          //ROS_INFO("model %s has %u meshes, %u mesh poses",
+          //         model_name.c_str(),
+          //         (unsigned int)object.meshes.size(),
+          //         (unsigned int)object.mesh_poses.size());
         }
       }
     }
