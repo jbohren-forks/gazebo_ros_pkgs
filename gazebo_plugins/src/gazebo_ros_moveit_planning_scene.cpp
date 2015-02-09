@@ -108,17 +108,9 @@ void GazeboRosMoveItPlanningScene::Load(physics::ModelPtr _model, sdf::ElementPt
 
   planning_scene_pub_ = this->rosnode_->advertise<moveit_msgs::PlanningScene>(this->topic_name_, 1);
 
-  // Custom Callback Queue
-  /*
-   *ros::SubscribeOptions so = ros::SubscribeOptions::create<geometry_msgs::Wrench>(
-   *  this->topic_name_,1,
-   *  boost::bind( &GazeboRosMoveItPlanningScene::UpdateObjectForce,this,_1),
-   *  ros::VoidPtr(), &this->queue_);
-   *this->sub_ = this->rosnode_->subscribe(so);
-   */
-
-  // Custom Callback Queue
-  this->callback_queue_thread_ = boost::thread( boost::bind( &GazeboRosMoveItPlanningScene::QueueThread,this ) );
+  // Custom Callback Queue for service
+  this->callback_queue_thread_ = boost::thread(boost::bind(
+          &GazeboRosMoveItPlanningScene::QueueThread, this));
 
   // Create service server
   ros::AdvertiseServiceOptions aso;
@@ -168,9 +160,7 @@ void GazeboRosMoveItPlanningScene::UpdateCB()
     } else {
       last_publish_time_ = ros::Time::now();
     }
-  }// else {
-  //  publish_full_scene_ = false;
-  //}
+  }
 
   // Iterate through the tracked models and clear their dynamic information
   // This also sets objects to be removed if they currently aren't in the scene
@@ -318,15 +308,9 @@ void GazeboRosMoveItPlanningScene::UpdateCB()
                 // These aren't supported
                 break;
               case SubMesh::TRIANGLES:
-                {
-                  object.mesh_poses.push_back(collision_pose_msg);
-                  break;
-                }
               case SubMesh::TRISTRIPS:
-                {
-                  object.mesh_poses.push_back(collision_pose_msg);
-                  break;
-                }
+                object.mesh_poses.push_back(collision_pose_msg);
+                break;
               case SubMesh::TRIFANS:
                 // Unsupported
                 gzerr << "TRIFANS not supported yet." << std::endl;
@@ -486,11 +470,11 @@ void GazeboRosMoveItPlanningScene::UpdateCB()
 
             object.primitives.push_back(primitive_msg);
           }
-          ROS_INFO("model %s has %u links",model_name.c_str(),links.size());
-          ROS_INFO("model %s has %u meshes, %u mesh poses",
+          ROS_INFO("model %s has %zu links",model_name.c_str(),links.size());
+          ROS_INFO("model %s has %zu meshes, %zu mesh poses",
                    model_name.c_str(),
-                   (unsigned int)object.meshes.size(),
-                   (unsigned int)object.mesh_poses.size());
+                   object.meshes.size(),
+                   object.mesh_poses.size());
         }
       }
     }
