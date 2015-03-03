@@ -490,6 +490,8 @@ void GazeboRosMoveItPlanningScene::UpdateCB()
   for(std::map<std::string,moveit_msgs::CollisionObject>::iterator object_it = collision_object_map_.begin();
       object_it != collision_object_map_.end();)
   {
+    // Update stamp
+    object_it->second.header.stamp = ros::Time::now();
     // Add the object to the planning scene message
     planning_scene_msg_.world.collision_objects.push_back(object_it->second);
 
