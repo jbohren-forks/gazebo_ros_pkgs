@@ -78,6 +78,7 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES 
   vision_reconfigure 
+  initial_time
   gazebo_ros_utils 
   gazebo_ros_camera_utils 
   gazebo_ros_camera 
@@ -172,6 +173,9 @@ target_link_libraries(gazebo_ros_camera_utils ${GAZEBO_LIBRARIES} ${catkin_LIBRA
 
 add_library(MultiCameraPlugin src/MultiCameraPlugin.cpp)
 target_link_libraries(MultiCameraPlugin ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_library(gazebo_initial_time src/gazebo_initial_time.cpp)
+target_link_libraries(gazebo_initial_time ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 add_library(gazebo_ros_camera src/gazebo_ros_camera.cpp)
 add_dependencies(gazebo_ros_camera ${PROJECT_NAME}_gencfg)

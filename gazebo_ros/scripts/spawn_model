@@ -88,6 +88,8 @@ class SpawnModel():
         self.joint_positions         = rospy.get_param('~initial_joint_positions',[])
         self.bond                    = False
 
+        self.delete_model = rospy.ServiceProxy('%s/delete_model'%(self.gazebo_namespace), DeleteModel)
+
     def parseUserInputs(self):
         # get goal from commandline
         for i in range(0,len(sys.argv)):
@@ -289,8 +291,7 @@ class SpawnModel():
 
     def callDeleteService(self):
         try:
-            delete_model = rospy.ServiceProxy('%s/delete_model'%(self.gazebo_namespace), DeleteModel)
-            delete_model(model_name=self.model_name)
+            self.delete_model(model_name=self.model_name)
         except rospy.ServiceException, e:
             rospy.logerr("delete model service call failed: %s"%e)
 
