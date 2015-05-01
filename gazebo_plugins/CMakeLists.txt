@@ -78,7 +78,7 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES 
   vision_reconfigure 
-  initial_time
+  gazebo_initial_time
   gazebo_ros_utils 
   gazebo_ros_camera_utils 
   gazebo_ros_camera 
